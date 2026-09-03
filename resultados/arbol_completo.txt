@@ -1,0 +1,107 @@
+[TotalSpend <= 0.500]  n=6085, gini=0.500
+   si  [HomePlanet <= 0.500]  n=2589, gini=0.344
+   si     si  [CabinNum <= 549.000]  n=1311, gini=0.464
+   si     si     si  [Deck <= 4.500]  n=525, gini=0.493
+   si     si     si     si  [GroupSize <= 5.500]  n=30, gini=0.278
+   si     si     si     si     si  --> Transported=True (p=1.000, n=23)
+   si     si     si     si     no  --> Transported=False (p=0.286, n=7)
+   si     si     si     no  [CryoSleep <= 0.500]  n=495, gini=0.497
+   si     si     si     no     si  [Age <= 4.500]  n=96, gini=0.489
+   si     si     si     no     si     si  --> Transported=True (p=0.600, n=40)
+   si     si     si     no     si     no  --> Transported=False (p=0.304, n=56)
+   si     si     si     no     no  [Side <= 0.500]  n=399, gini=0.490
+   si     si     si     no     no     si  --> Transported=True (p=0.634, n=175)
+   si     si     si     no     no     no  --> Transported=True (p=0.518, n=224)
+   si     si     no  [Side <= 0.500]  n=786, gini=0.432
+   si     si     no     si  [Destination <= 1.500]  n=400, gini=0.489
+   si     si     no     si     si  [CabinNum <= 1472.500]  n=141, gini=0.429
+   si     si     no     si     si     si  --> Transported=True (p=0.711, n=135)
+   si     si     no     si     si     no  --> Transported=False (p=0.167, n=6)
+   si     si     no     si     no  [GroupSize <= 5.500]  n=259, gini=0.500
+   si     si     no     si     no     si  --> Transported=True (p=0.550, n=222)
+   si     si     no     si     no     no  --> Transported=False (p=0.270, n=37)
+   si     si     no     no  [CabinNum <= 1203.000]  n=386, gini=0.319
+   si     si     no     no     si  [CabinNum <= 764.000]  n=264, gini=0.219
+   si     si     no     no     si     si  --> Transported=True (p=0.701, n=97)
+   si     si     no     no     si     no  --> Transported=True (p=0.976, n=167)
+   si     si     no     no     no  [Age <= 24.500]  n=122, gini=0.461
+   si     si     no     no     no     si  --> Transported=True (p=0.721, n=86)
+   si     si     no     no     no     no  --> Transported=False (p=0.444, n=36)
+   si     no  [CryoSleep <= 0.500]  n=1278, gini=0.132
+   si     no     si  [Age <= 15.500]  n=178, gini=0.336
+   si     no     si     si  --> Transported=True (p=1.000, n=95)
+   si     no     si     no  [HomePlanet <= 1.500]  n=83, gini=0.496
+   si     no     si     no     si  [Side <= 0.500]  n=46, gini=0.386
+   si     no     si     no     si     si  --> Transported=False (p=0.500, n=20)
+   si     no     si     no     si     no  --> Transported=True (p=0.923, n=26)
+   si     no     si     no     no  [Deck <= 4.500]  n=37, gini=0.418
+   si     no     si     no     no     si  --> Transported=False (p=0.107, n=28)
+   si     no     si     no     no     no  --> Transported=True (p=0.889, n=9)
+   si     no     no  [HomePlanet <= 1.500]  n=1100, gini=0.092
+   si     no     no     si  [Age <= 8.500]  n=641, gini=0.019
+   si     no     no     si     si  --> Transported=False (p=0.400, n=5)
+   si     no     no     si     no  [GroupSize <= 6.500]  n=636, gini=0.009
+   si     no     no     si     no     si  --> Transported=True (p=0.997, n=617)
+   si     no     no     si     no     no  --> Transported=True (p=0.947, n=19)
+   si     no     no     no  [Deck <= 4.500]  n=459, gini=0.184
+   si     no     no     no     si  [Deck <= 3.500]  n=95, gini=0.496
+   si     no     no     no     si     si  --> Transported=True (p=0.958, n=24)
+   si     no     no     no     si     no  --> Transported=False (p=0.408, n=71)
+   si     no     no     no     no  [Age <= 23.500]  n=364, gini=0.022
+   si     no     no     no     no     si  --> Transported=True (p=1.000, n=139)
+   si     no     no     no     no     no  --> Transported=True (p=0.982, n=225)
+   no  [FoodCourt <= 531.000]  n=3496, gini=0.420
+   no     si  [ShoppingMall <= 541.000]  n=2535, gini=0.352
+   no     si     si  [TotalSpend <= 1607.000]  n=1948, gini=0.253
+   no     si     si     si  [FoodCourt <= 161.000]  n=1447, gini=0.301
+   no     si     si     si     si  [CabinNum <= 1866.000]  n=1250, gini=0.278
+   no     si     si     si     si     si  --> Transported=False (p=0.165, n=1245)
+   no     si     si     si     si     no  --> Transported=True (p=0.800, n=5)
+   no     si     si     si     no  [TotalSpend <= 666.500]  n=197, gini=0.415
+   no     si     si     si     no     si  --> Transported=True (p=0.559, n=34)
+   no     si     si     si     no     no  --> Transported=False (p=0.239, n=163)
+   no     si     si     no  [Age <= 24.500]  n=501, gini=0.088
+   no     si     si     no     si  [RoomService <= 1118.000]  n=157, gini=0.162
+   no     si     si     no     si     si  --> Transported=False (p=0.024, n=83)
+   no     si     si     no     si     no  --> Transported=False (p=0.162, n=74)
+   no     si     si     no     no  [Deck <= 3.500]  n=344, gini=0.051
+   no     si     si     no     no     si  --> Transported=False (p=0.052, n=173)
+   no     si     si     no     no     no  --> Transported=False (p=0.000, n=171)
+   no     si     no  [Spa <= 200.000]  n=587, gini=0.500
+   no     si     no     si  [RoomService <= 377.500]  n=500, gini=0.496
+   no     si     no     si     si  [ShoppingMall <= 1276.500]  n=399, gini=0.473
+   no     si     no     si     si     si  --> Transported=True (p=0.557, n=314)
+   no     si     no     si     si     no  --> Transported=True (p=0.835, n=85)
+   no     si     no     si     no  [ShoppingMall <= 1650.500]  n=101, gini=0.392
+   no     si     no     si     no     si  --> Transported=False (p=0.190, n=79)
+   no     si     no     si     no     no  --> Transported=True (p=0.545, n=22)
+   no     si     no     no  [ShoppingMall <= 4603.500]  n=87, gini=0.285
+   no     si     no     no     si  [Age <= 21.500]  n=79, gini=0.221
+   no     si     no     no     si     si  --> Transported=False (p=0.333, n=15)
+   no     si     no     no     si     no  --> Transported=False (p=0.078, n=64)
+   no     si     no     no     no  --> Transported=True (p=0.625, n=8)
+   no     no  [Spa <= 1105.000]  n=961, gini=0.500
+   no     no     si  [FoodCourt <= 2506.500]  n=775, gini=0.491
+   no     no     si     si  [VRDeck <= 620.000]  n=540, gini=0.497
+   no     no     si     si     si  [RoomService <= 412.500]  n=429, gini=0.497
+   no     no     si     si     si     si  --> Transported=True (p=0.569, n=383)
+   no     no     si     si     si     no  --> Transported=False (p=0.261, n=46)
+   no     no     si     si     no  [Side <= 0.500]  n=111, gini=0.295
+   no     no     si     si     no     si  --> Transported=False (p=0.073, n=55)
+   no     no     si     si     no     no  --> Transported=False (p=0.286, n=56)
+   no     no     si     no  [VRDeck <= 2105.500]  n=235, gini=0.315
+   no     no     si     no     si  [RoomService <= 1649.500]  n=204, gini=0.192
+   no     no     si     no     si     si  --> Transported=True (p=0.914, n=197)
+   no     no     si     no     si     no  --> Transported=False (p=0.286, n=7)
+   no     no     si     no     no  [FoodCourt <= 7211.000]  n=31, gini=0.350
+   no     no     si     no     no     si  --> Transported=False (p=0.125, n=24)
+   no     no     si     no     no     no  --> Transported=True (p=0.571, n=7)
+   no     no     no  [Spa <= 2927.500]  n=186, gini=0.271
+   no     no     no     si  [FoodCourt <= 4124.500]  n=107, gini=0.404
+   no     no     no     si     si  [TotalSpend <= 3647.000]  n=78, gini=0.278
+   no     no     no     si     si     si  --> Transported=False (p=0.385, n=26)
+   no     no     no     si     si     no  --> Transported=False (p=0.058, n=52)
+   no     no     no     si     no  [VRDeck <= 2330.000]  n=29, gini=0.485
+   no     no     no     si     no     si  --> Transported=True (p=0.739, n=23)
+   no     no     no     si     no     no  --> Transported=False (p=0.000, n=6)
+   no     no     no     no  --> Transported=False (p=0.000, n=79)

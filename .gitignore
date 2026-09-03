@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+
+# El modelo entrenado pesa ~13 MB y se regenera con: python main.py --entrenar
+resultados/modelo.pkl
+
+.vscode/
+.idea/
+.DS_Store

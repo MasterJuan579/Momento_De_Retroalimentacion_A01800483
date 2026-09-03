@@ -1,0 +1,145 @@
+Archivo: data/train.csv
+Nota: data/test.csv es el set de Kaggle y no trae la etiqueta
+      Transported, por eso el conjunto de prueba se obtiene
+      particionando el archivo de entrenamiento.
+
+Subconjunto      Muestras   % Transported
+Entrenamiento        6085         50.37%
+Validacion           1304         50.38%
+Prueba               1304         50.31%
+
+Caracteristicas usadas (16): HomePlanet, CryoSleep, Destination, VIP, Deck, Side, Age, CabinNum, GroupSize, TotalSpend, NoSpend, RoomService, FoodCourt, ShoppingMall, Spa, VRDeck
+
+Linea base (predecir siempre la clase mayoritaria): 0.5031
+Se entrena un arbol por cada profundidad y se compara su acierto
+en entrenamiento contra el de validacion. La brecha entre ambas
+curvas es la medida directa del sobreajuste.
+
+ Profundidad   Entrenamiento   Validacion    Nodos
+           1          0.7341       0.7653        3
+           2          0.7341       0.7653        7
+           3          0.7510       0.7845       15
+           4          0.7652       0.7784       31
+           5          0.7873       0.7960       59
+           6          0.8028       0.8060      107
+           7          0.8166       0.7998      187
+           8          0.8317       0.8006      309
+           9          0.8449       0.8052      429
+          10          0.8590       0.8052      539
+          11          0.8707       0.7899      651
+          12          0.8800       0.7914      759
+          13          0.8879       0.7791      855
+          14          0.8922       0.7830      927
+          15          0.8956       0.7860      975
+          16          0.8971       0.7830     1001
+          17          0.8976       0.7822     1017
+          18          0.8988       0.7845     1041
+          19          0.8988       0.7845     1047
+          20          0.8988       0.7845     1051
+
+Mejor profundidad segun validacion: 6
+Arbol SIN poda -> entrenamiento 0.9998, validacion 0.7638, 2143 nodos, profundidad 26
+Grafica guardada: resultados\curva_profundidad.png
+Entrenando 100 arboles con bagging y subespacio
+aleatorio de caracteristicas (sqrt de 16 = 4 por nodo)...
+
+
+Entrenamiento terminado en 18.6 segundos.
+
+Arboles:                100
+Nodos por arbol:        876.2 en promedio
+Profundidad por arbol:  14.0 en promedio
+Caracteristicas/nodo:   sqrt
+Acierto out-of-bag:     0.7941
+
+  Arboles   Validacion   Out-of-bag
+        1       0.7515       0.7303
+        5       0.8106       0.7447
+       10       0.8221       0.7617
+       25       0.8083       0.7850
+       50       0.8137       0.7905
+       75       0.8236       0.7916
+      100       0.8183       0.7941
+Grafica guardada: resultados\curva_arboles.png
+El conjunto de prueba no se uso en ningun momento para entrenar
+ni para elegir hiperparametros; se evalua una sola vez, aqui.
+
+
+Arbol de decision (profundidad 6) - matriz de confusion
+                       PREDICCION
+                  No transp.   Si transp.
+  REAL No transp.        480          168   <- 168 falsos positivos
+       Si transp.        127          529
+                        ^
+                        127 falsos negativos
+
+Arbol de decision (profundidad 6) - metricas
+--------------------------------------------
+  Exactitud (accuracy)      0.7738
+  Precision                 0.7590
+  Sensibilidad (recall)     0.8064
+  Especificidad             0.7407
+  F1                        0.7820
+  AUC (ROC)                 0.8573
+  Muestras evaluadas        1304
+Grafica guardada: resultados\matriz_confusion_arbol.png
+
+Random Forest (100 arboles) - matriz de confusion
+                       PREDICCION
+                  No transp.   Si transp.
+  REAL No transp.        519          129   <- 129 falsos positivos
+       Si transp.        128          528
+                        ^
+                        128 falsos negativos
+
+Random Forest (100 arboles) - metricas
+--------------------------------------
+  Exactitud (accuracy)      0.8029
+  Precision                 0.8037
+  Sensibilidad (recall)     0.8049
+  Especificidad             0.8009
+  F1                        0.8043
+  AUC (ROC)                 0.8886
+  Muestras evaluadas        1304
+Grafica guardada: resultados\matriz_confusion_bosque.png
+
+Grafica guardada: resultados\curva_roc.png
+  Caracteristica   Importancia
+      TotalSpend        0.1516
+       FoodCourt        0.0925
+             Spa        0.0905
+         NoSpend        0.0882
+        CabinNum        0.0833
+     RoomService        0.0752
+          VRDeck        0.0747
+       CryoSleep        0.0719
+    ShoppingMall        0.0680
+             Age        0.0586
+            Deck        0.0546
+      HomePlanet        0.0369
+       GroupSize        0.0222
+            Side        0.0164
+     Destination        0.0143
+             VIP        0.0013
+Grafica guardada: resultados\importancias.png
+[TotalSpend <= 0.500]  n=6085, gini=0.500
+   si  [HomePlanet <= 0.500]  n=2589, gini=0.344
+   si     si  [CabinNum <= 549.000]  n=1311, gini=0.464
+   si     si     si  ... (podado en la impresion, n=525)
+   si     si     no  ... (podado en la impresion, n=786)
+   si     no  [CryoSleep <= 0.500]  n=1278, gini=0.132
+   si     no     si  ... (podado en la impresion, n=178)
+   si     no     no  ... (podado en la impresion, n=1100)
+   no  [FoodCourt <= 531.000]  n=3496, gini=0.420
+   no     si  [ShoppingMall <= 541.000]  n=2535, gini=0.352
+   no     si     si  ... (podado en la impresion, n=1948)
+   no     si     no  ... (podado en la impresion, n=587)
+   no     no  [Spa <= 1105.000]  n=961, gini=0.500
+   no     no     si  ... (podado en la impresion, n=775)
+   no     no     no  ... (podado en la impresion, n=186)
+
+Arbol completo guardado en: resultados\arbol_completo.txt
+Modelo                                    Exactitud       F1      AUC
+Linea base (clase mayoritaria)               0.5031        -        -
+Arbol de decision (profundidad 6)            0.7738   0.7820   0.8573
+Random Forest (100 arboles)                  0.8029   0.8043   0.8886
