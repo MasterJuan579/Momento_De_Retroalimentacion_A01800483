@@ -4,14 +4,20 @@
 **Profesor:** Jorge Adolfo Ramírez Uresti
 **Autor:** Juan Pablo Pérez Gutiérrez — **A01800483**
 
-Este repositorio contiene las dos entregas del módulo, ambas sobre el mismo problema
+> **Entrega actual — Análisis y Reporte sobre el desempeño del modelo:**
+> [Reporte_M2_Analisis_Desempeno.pdf](Reporte_M2_Analisis_Desempeno.pdf) · código en
+> [`analisis_desempeno.py`](analisis_desempeno.py). Los reportes de las entregas anteriores están en
+> [`entregas_anteriores/`](entregas_anteriores).
+
+Este repositorio contiene las entregas del módulo, todas sobre el mismo problema
 (**Spaceship Titanic**: predecir si un pasajero fue transportado a otra dimensión), lo que permite
 compararlas de forma directa.
 
 | Entrega | Enfoque | Código | Reporte |
 |---|---|---|---|
-| **Parte I** — sin framework | Árbol CART y Random Forest programados a mano | [`main.py`](main.py), [`src/`](src) | [REPORTE.md](REPORTE.md) |
-| **Parte II** — con framework | scikit-learn: Pipeline, ColumnTransformer y GridSearchCV | [`main_framework.py`](main_framework.py) | [Reporte_M2_Parte2_Framework.pdf](Reporte_M2_Parte2_Framework.pdf) |
+| **Parte I** — sin framework | Árbol CART y Random Forest programados a mano | [`main.py`](main.py), [`src/`](src) | [Reporte_M2_Parte1_SinFramework.md](entregas_anteriores/Reporte_M2_Parte1_SinFramework.md) |
+| **Parte II** — con framework | scikit-learn: Pipeline, ColumnTransformer y GridSearchCV | [`main_framework.py`](main_framework.py) | [Reporte_M2_Parte2_Framework.pdf](entregas_anteriores/Reporte_M2_Parte2_Framework.pdf) |
+| **Análisis de desempeño** | Sesgo, varianza, ajuste y regularización del Random Forest | [`analisis_desempeno.py`](analisis_desempeno.py) | [Reporte_M2_Analisis_Desempeno.pdf](Reporte_M2_Analisis_Desempeno.pdf) |
 
 > **Hallazgo de la comparación:** entrenadas con la misma configuración y los mismos datos, ambas
 > implementaciones alcanzan **exactamente la misma exactitud (0.7914)**, pero scikit-learn entrena
@@ -42,7 +48,7 @@ línea por línea en este repositorio.
 | Árbol de decisión (profundidad 6) | 0.7738 | 0.7820 | 0.8573 |
 | **Random Forest (100 árboles)** | **0.8029** | **0.8043** | **0.8886** |
 
-El análisis completo está en [REPORTE.md](REPORTE.md).
+El análisis completo está en [Reporte_M2_Parte1_SinFramework.md](entregas_anteriores/Reporte_M2_Parte1_SinFramework.md).
 
 ---
 
@@ -120,7 +126,7 @@ python main.py --entrenar --arboles 200 --criterio entropia --semilla 7
 │   └── plots.py          Graficas (solo visualizacion)
 ├── data/                 Dataset Spaceship Titanic
 ├── resultados/           Salida generada por --entrenar
-└── REPORTE.md            Reporte de resultados
+└── entregas_anteriores/  Reportes de la Parte I y la Parte II
 ```
 
 El proyecto corre con un intérprete de Python normal. No depende de un IDE ni de un notebook.
@@ -181,7 +187,7 @@ demostrando dominio sobre su uso y sobre la configuración del algoritmo.
 | Random Forest | 0.7929 | 0.8136 | 0.7641 | 0.7881 | 0.8907 |
 | **Gradient Boosting** (seleccionado) | **0.8029** | 0.8003 | 0.8113 | **0.8057** | **0.9022** |
 
-El análisis completo está en [Reporte_M2_Parte2_Framework.pdf](Reporte_M2_Parte2_Framework.pdf).
+El análisis completo está en [Reporte_M2_Parte2_Framework.pdf](entregas_anteriores/Reporte_M2_Parte2_Framework.pdf).
 
 ## Qué se configuró
 
@@ -211,3 +217,38 @@ python main_framework.py --predecir
 ```bash
 python main_framework.py --predecir-csv data/test.csv
 ```
+
+---
+
+# Análisis y reporte sobre el desempeño del modelo
+
+Diagnóstico de sesgo, varianza y nivel de ajuste del Random Forest de la Parte II, y su mejora
+mediante regularización. El reporte completo está en
+[Reporte_M2_Analisis_Desempeno.pdf](Reporte_M2_Analisis_Desempeno.pdf).
+
+```bash
+python analisis_desempeno.py
+```
+
+Tarda alrededor de 5 minutos y deja 10 gráficas y un `resultados.json` en `resultados_analisis/`.
+
+## Diagnóstico
+
+| | Modelo base (por defecto) | Modelo regularizado |
+|---|---|---|
+| Exactitud entrenamiento / validación / prueba | 0.9998 / 0.8037 / 0.7876 | 0.8459 / 0.8021 / 0.7860 |
+| Brecha entrenamiento − validación | 0.1962 | 0.0437 (−78 %) |
+| Varianza (descomposición por bootstrap) | 0.0662 | 0.0365 (−45 %) |
+| Validación cruzada, 5 pliegues | 0.7946 | 0.8058 (mejora en 5 de 5 pliegues) |
+| AUC / F1 en prueba | 0.8769 / 0.7786 | 0.8875 / 0.7878 |
+| **Sesgo** | **bajo** | **medio** |
+| **Varianza** | **alta** | **media** |
+| **Ajuste** | **overfit** | **fit** |
+
+Configuración regularizada encontrada con `RandomizedSearchCV`: 300 árboles, `min_samples_leaf=4`,
+`min_samples_split=20`, `max_samples=0.5`, `ccp_alpha=0.0002`. Las hojas por árbol bajaron de
+1,106 a 128.
+
+La exactitud en prueba se mantuvo dentro del error de medición (±0.011): el modelo ya estaba cerca
+del techo de ~80 % del problema. Lo que cambió es que ahora llega a ese techo sin memorizar, con
+predicciones estables y errores equilibrados entre clases.

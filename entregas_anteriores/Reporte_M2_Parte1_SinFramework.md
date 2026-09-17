@@ -222,7 +222,7 @@ el de validación:
 | 20 | 0.8988 | 0.7845 | 1,051 |
 | **sin límite** | **0.9998** | **0.7638** | **2,143** (profundidad 26) |
 
-![Curva de profundidad](resultados/curva_profundidad.png)
+![Curva de profundidad](../resultados/curva_profundidad.png)
 
 Esta tabla es la demostración más clara de qué es el sobreajuste. La curva de entrenamiento **sube
 sin parar**, de 0.734 a 0.899, y el árbol sin límite llega a **0.9998: memoriza prácticamente todas
@@ -282,7 +282,7 @@ características por nodo. Entrenamiento completo en **18.6 segundos**; el bosqu
 | 50 | 0.8137 | 0.7905 |
 | 100 | 0.8183 | **0.7941** |
 
-![Curva de número de árboles](resultados/curva_arboles.png)
+![Curva de número de árboles](../resultados/curva_arboles.png)
 
 El salto grande ocurre al principio: **un solo árbol del bosque da 0.7515, y con cinco ya se llega a
 0.8106**. Después la curva se aplana. Esto es exactamente lo que predice la teoría del bagging: los
@@ -326,7 +326,7 @@ Convención: la clase positiva es "el pasajero **sí** fue transportado".
        Si transp.        128          528     <- 128 falsos negativos
 ```
 
-![Matriz de confusión del bosque](resultados/matriz_confusion_bosque.png)
+![Matriz de confusión del bosque](../resultados/matriz_confusion_bosque.png)
 
 | Métrica | Línea base | Árbol de decisión | **Random Forest** |
 |---|---|---|---|
@@ -337,7 +337,7 @@ Convención: la clase positiva es "el pasajero **sí** fue transportado".
 | **F1** | — | 0.7820 | **0.8043** |
 | **AUC (ROC)** | 0.5 | 0.8573 | **0.8886** |
 
-![Curva ROC](resultados/curva_roc.png)
+![Curva ROC](../resultados/curva_roc.png)
 
 ### Por qué estas métricas
 
@@ -402,7 +402,7 @@ cancelan.
 | `Destination` | 0.0143 |
 | `VIP` | **0.0013** |
 
-![Importancia de características](resultados/importancias.png)
+![Importancia de características](../resultados/importancias.png)
 
 **Las características de gasto dominan.** Sumadas, `TotalSpend`, `NoSpend` y las cinco amenidades
 concentran más del 65% de la importancia total. Las dos características derivadas que se
