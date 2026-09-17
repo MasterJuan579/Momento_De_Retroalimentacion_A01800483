@@ -1,11 +1,28 @@
-# Árbol de Decisión y Random Forest sin framework
+# Momento de Retroalimentación — Módulo 2
 
-**Momento de Retroalimentación — Módulo 2, Parte I**
-Indicador **SMA0401A**: implementación de una técnica de aprendizaje máquina sin uso de framework.
+**Curso:** Inteligencia artificial avanzada para la ciencia de datos (Gpo 601)
+**Profesor:** Jorge Adolfo Ramírez Uresti
+**Autor:** Juan Pablo Pérez Gutiérrez — **A01800483**
 
-Autor: Juan Pablo Pérez — **A01800483**
+Este repositorio contiene las dos entregas del módulo, ambas sobre el mismo problema
+(**Spaceship Titanic**: predecir si un pasajero fue transportado a otra dimensión), lo que permite
+compararlas de forma directa.
+
+| Entrega | Enfoque | Código | Reporte |
+|---|---|---|---|
+| **Parte I** — sin framework | Árbol CART y Random Forest programados a mano | [`main.py`](main.py), [`src/`](src) | [REPORTE.md](REPORTE.md) |
+| **Parte II** — con framework | scikit-learn: Pipeline, ColumnTransformer y GridSearchCV | [`main_framework.py`](main_framework.py) | [Reporte_M2_Parte2_Framework.pdf](Reporte_M2_Parte2_Framework.pdf) |
+
+> **Hallazgo de la comparación:** entrenadas con la misma configuración y los mismos datos, ambas
+> implementaciones alcanzan **exactamente la misma exactitud (0.7914)**, pero scikit-learn entrena
+> 39 veces más rápido. El código propio explica *por qué* funciona el algoritmo; el framework es lo
+> que permite iterar.
 
 ---
+
+# Parte I — Árbol de Decisión y Random Forest sin framework
+
+Indicador **SMA0401A**: implementación de una técnica de aprendizaje máquina sin uso de framework.
 
 ## Qué es esto
 
@@ -147,3 +164,50 @@ tres conjuntos se obtienen particionando `data/train.csv` de forma estratificada
 | Entrenamiento | 6,085 (70%) | Construir los árboles |
 | Validación | 1,304 (15%) | Elegir la profundidad y demás hiperparámetros |
 | Prueba | 1,304 (15%) | Evaluación final, una sola vez |
+
+---
+
+# Parte II — La misma solución con scikit-learn
+
+Segunda entrega del módulo: resolver el mismo problema apoyándose por completo en un framework,
+demostrando dominio sobre su uso y sobre la configuración del algoritmo.
+
+## Resultados sobre el conjunto de prueba
+
+| Modelo | Exactitud | Precisión | Sensibilidad | F1 | AUC |
+|---|---|---|---|---|---|
+| Línea base (clase mayoritaria) | 0.5038 | — | — | — | — |
+| Regresión Logística | 0.7814 | 0.7793 | 0.7900 | 0.7846 | 0.8776 |
+| Random Forest | 0.7929 | 0.8136 | 0.7641 | 0.7881 | 0.8907 |
+| **Gradient Boosting** (seleccionado) | **0.8029** | 0.8003 | 0.8113 | **0.8057** | **0.9022** |
+
+El análisis completo está en [Reporte_M2_Parte2_Framework.pdf](Reporte_M2_Parte2_Framework.pdf).
+
+## Qué se configuró
+
+- **Pipeline + ColumnTransformer**: todo el preprocesamiento vive dentro del modelo, así que la
+  imputación y el escalado se reajustan dentro de cada pliegue de la validación cruzada y no hay
+  fuga de datos. El objeto guardado acepta una fila cruda del CSV original.
+- **FunctionTransformer**: la ingeniería de características (`Deck`, `CabinNum`, `Side`,
+  `GroupSize`, `TotalSpend`, `NoSpend`) también forma parte del pipeline.
+- **GridSearchCV** con validación cruzada estratificada de 5 pliegues: 30 combinaciones de
+  hiperparámetros, equivalentes a 150 ajustes de modelo.
+- **Importancia por permutación** en lugar de la importancia por impureza, porque se calcula sobre
+  datos no vistos y no favorece a las variables de alta cardinalidad.
+
+## Cómo ejecutarlo
+
+```bash
+python main_framework.py --entrenar
+```
+
+Tarda alrededor de 2 minutos (incluye la búsqueda de hiperparámetros). Deja las gráficas, la
+bitácora y el modelo entrenado en `resultados_framework/`.
+
+```bash
+python main_framework.py --predecir
+```
+
+```bash
+python main_framework.py --predecir-csv data/test.csv
+```
